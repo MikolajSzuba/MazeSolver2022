@@ -1,0 +1,111 @@
+
+#ifndef _LABIRYNT_H_
+#define _LABIRYNT_H_
+
+#define MAXWIDTH	512
+
+// wartości pól w macierzy
+typedef enum //__attribute__((__packed__)) 
+	{ WOLNE = 0, ZAJETE, ODWIEDZONE } pole_t;
+
+// współrzędne (w,k)
+typedef struct {
+  /* uzupełnić */
+} wsp_t;
+
+
+
+//--**---stos dla struktur wsp_t--------------------------------------------
+// 
+typedef struct {
+  /* uzupełnić */
+} stos_t;
+
+stos_t * nowy_stos( unsigned rozmiar );
+void zwolnij_stos( stos_t * S );
+
+// testy
+int stos_pusty( stos_t * S ); 
+int stos_pelny( stos_t * S );
+
+// modyfikowanie stosu
+void stos_dodaj( stos_t * S, wsp_t w );
+wsp_t stos_zdejmij( stos_t * S );
+// odczytuje szczyt, ale go nie pobiera
+wsp_t stos_szczytowy( stos_t * S );
+//--**----------------------------------------------------------------------
+
+
+
+
+
+ 
+//--**---reprezentacja labiryntu--------------------------------------------
+// 'Pole' może być typu pole_t, gdy uda się ograniczyć go do 1 bajta
+typedef struct _labirynt {
+  unsigned short LW, LK;
+  char /*pole_t*/ Pole[][MAXWIDTH];
+} Labirynt;
+
+#define ROZMIAR_WIERSZA	    sizeof(((Labirynt *)NULL)->Pole[0])
+
+
+// procedury *obowiązkowe*
+
+// * przechodzi labirynt, zaczynając od współrzędnych (w,k), aż dojdzie do
+//   wyjścia (komórka na krawędzi labiryntu, która nie jest ścianą)
+// * zwraca stos ze współrzędnymi poszczególnych kroków
+//
+// * może zwrócić NULL, gdy był problem z alokacją,
+// * zwrócony stos będzie rozmiaru 0, gdy podano złe współrzędne {w,k}, albo
+//   labirynt ma złe właściwości (np. LW==0)
+// * stos bedzie pusty, gdy nie można dojść do (innego) wyjścia
+stos_t * spacer( Labirynt * L, unsigned w, unsigned k );
+
+Labirynt * nowy_labirynt( short l_wierszy, unsigned l_kolumn );
+void zwolnij_labirynt( Labirynt * );
+
+
+
+
+// proponowane funkcje pomocnicze
+// można używać innych
+// 
+// // weryfikacja współrzędnych; ograniczeń dostarcza labirynt
+// int test_krawedzi( wsp_t, Labirynt * ); // weryfikacja współrzędnych
+// int test_pozycji( wsp_t, Labirynt * ); // weryfikacja współrzędnych
+// int test_pola( wsp_t, Labirynt * );    // weryf. współrzędnych i wartości
+// 
+// 
+// // zwraca współrzędne pierwszego punktu, spełniającego wymagania, 
+// // albo {-1,-1}, gdy takiego nie ma
+// // wymagania: punkt oddalony o 1 od zadanego, w kierunku N,W,S,E,
+// // wskazane przez niego pole jest WOLNE
+// wsp_t mozliwy_krok( wsp_t, Labirynt * );
+// 
+// // * modyfikuje stos przed dodanie lub usunięcie jednego elementu
+// //   modyfikuje labirynt zamieniając WOLNE na ODWIEDZONE
+// // * operacja odpowiada wykonaniu jednego ruchu w labiryncie
+// // * założenie: stos nie jest pusty, L i S wskazują na struktury
+// void nastepny_krok( Labirynt * L, stos_t * S );
+
+
+//--**----------------------------------------------------------------------
+//  I/O
+//  miejsce na deklację funkcji do odczytu/zapisu plików PGM
+
+// opcja: definicja kodów i komunikatów błędów
+// extern int IOerrCode;
+// extern char * IOerr[];
+
+
+
+//--**----------------------------------------------------------------------
+
+
+
+
+
+#endif	//_LABIRYNT_H_
+
+// vim: sts=2 sw=2 :
