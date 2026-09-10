@@ -1,80 +1,80 @@
 # Maze Solver
 
-> Mój pierwszy projekt programistyczny — prosty solver labiryntów napisany w języku C.
+> My first programming project — a simple maze solver written in C.
 
-Program wczytuje labirynt zapisany jako obraz **PGM**, szuka drogi od wskazanego pola do krawędzi planszy, a następnie zapisuje odnalezioną trasę w nowym pliku. Projekt powstał jako okazja do nauki pracy ze strukturami danych, dynamiczną alokacją pamięci, rekurencją i obsługą plików binarnych.
+The program reads a maze stored as a **PGM image**, searches for a path from a specified starting point to the edge of the maze, and saves the discovered route to a new file. I created this project to learn about data structures, dynamic memory allocation, recursion, and binary file handling.
 
-## Jak to działa?
+## How does it work?
 
-Solver porusza się po dostępnych polach labiryntu i zapamiętuje kolejne współrzędne na własnej implementacji stosu. Gdy trafi w ślepą uliczkę, cofa się do ostatniego miejsca, z którego może wybrać inną drogę.
+The solver moves through the available cells of the maze and stores their coordinates using a custom stack implementation. When it reaches a dead end, it backtracks to the most recent position from which another path can be explored.
 
-W obrazie wynikowym:
+In the output image:
 
-- czarne piksele oznaczają ściany,
-- białe piksele oznaczają wolne pola,
-- szare piksele pokazują znalezioną trasę.
+- black pixels represent walls,
+- white pixels represent open paths,
+- gray pixels mark the discovered route.
 
-## Najważniejsze elementy projektu
+## Key features
 
-- odczyt i zapis binarnych plików PGM (`P5`),
-- algorytm przeszukiwania labiryntu z nawrotami,
-- własna implementacja stosu,
-- dynamiczne zarządzanie pamięcią,
-- zapis rozwiązania w formie obrazu.
+- reading and writing binary PGM (`P5`) files,
+- maze traversal with backtracking,
+- custom stack implementation,
+- dynamic memory management,
+- saving the solution as an image.
 
-## Uruchomienie
+## Getting started
 
-Do kompilacji potrzebny jest kompilator C, na przykład **GCC**.
+You will need a C compiler, such as **GCC**.
 
 ```bash
 cd labirynt
 gcc main.c -o maze-solver
 ```
 
-Uruchom program:
+Run the program:
 
 ```bash
 ./maze-solver
 ```
 
-W systemie Windows:
+On Windows:
 
 ```powershell
 .\maze-solver.exe
 ```
 
-Program domyślnie:
+By default, the program:
 
-1. wczytuje plik `lab.pgm`,
-2. rozpoczyna szukanie od współrzędnych `{0, 1}`,
-3. wypisuje współrzędne znalezionej trasy,
-4. zapisuje wynik jako `nowylab.pgm`.
+1. reads the `lab.pgm` file,
+2. starts searching at coordinates `{0, 1}`,
+3. prints the coordinates of the discovered route,
+4. saves the result as `nowylab.pgm`.
 
-Nazwy plików oraz punkt startowy można zmienić w pliku [`labirynt/main.c`](labirynt/main.c).
+The file names and starting point can be changed in [`labirynt/main.c`](labirynt/main.c).
 
-## Struktura projektu
+## Project structure
 
 ```text
 MazeSolver2022/
 ├── labirynt/
-│   ├── main.c          # punkt wejścia programu
-│   ├── labirynt.c      # solver oraz obsługa plików PGM
-│   ├── labirynt.h      # struktury i deklaracje funkcji
-│   ├── stos.c          # implementacja stosu
-│   └── *.pgm           # przykładowe labirynty i wyniki
+│   ├── main.c          # program entry point
+│   ├── labirynt.c      # maze solver and PGM file handling
+│   ├── labirynt.h      # data structures and function declarations
+│   ├── stos.c          # stack implementation
+│   └── *.pgm           # sample mazes and output files
 └── mergesort/
     ├── main.c
-    ├── mergesort.c     # Merge Sort dla listy jednokierunkowej
+    ├── mergesort.c     # Merge Sort for a singly linked list
     └── mergesort.h
 ```
 
-Folder `mergesort` zawiera dodatkowe ćwiczenie z implementacji sortowania przez scalanie na liście jednokierunkowej.
+The `mergesort` directory contains an additional exercise implementing Merge Sort for a singly linked list.
 
-## Czego nauczył mnie ten projekt?
+## What did I learn?
 
-Ponieważ był to mój pierwszy projekt, pozwolił mi w praktyce poznać podstawy języka C i lepiej zrozumieć działanie algorytmów. Najważniejsze doświadczenia to praca ze wskaźnikami, strukturami, pamięcią dynamiczną, rekurencją oraz reprezentacją danych obrazu.
+As my first programming project, it gave me hands-on experience with the fundamentals of C and helped me better understand how algorithms work. Most importantly, I learned about pointers, structures, dynamic memory, recursion, and image data representation.
 
-## Autor
+## Author
 
 **Mikołaj Szuba**  
-Pierwszy projekt programistyczny, rozwijany w ramach nauki języka C.
+My first programming project, created while learning the C language.
